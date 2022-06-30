@@ -1,9 +1,6 @@
 package com.messenger.service.messengerservice.kafka;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.messenger.service.messengerservice.model.Message;
-import com.messenger.service.messengerservice.services.Sender;
+import com.messenger.service.messengerservice.services.telegram.TelegramSenderImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -16,17 +13,17 @@ import java.io.IOException;
 @Slf4j
 public class ConsumerMessenger {
     final
-    Sender senderService;
+    TelegramSenderImpl telegramSenderService;
 
-    public ConsumerMessenger(Sender senderService) {
-        this.senderService = senderService;
+    public ConsumerMessenger(TelegramSenderImpl telegramSenderService) {
+        this.telegramSenderService = telegramSenderService;
     }
 
     @KafkaListener(topics="analyzed-messages")
     public void msgListener(String msg) throws IOException {
         //ObjectMapper mapper = new ObjectMapper();
        // Message message = mapper.readValue(msg, Message.class);
-        senderService.send(msg);
+        telegramSenderService.send(msg);
     }
 
 }
