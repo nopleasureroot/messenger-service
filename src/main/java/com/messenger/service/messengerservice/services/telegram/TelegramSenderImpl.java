@@ -10,24 +10,30 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
+import com.messenger.service.messengerservice.TelegramConfig;
 import com.messenger.service.messengerservice.services.Sender;
 
 @Service
 public class TelegramSenderImpl implements Sender {
+
+    private final TelegramConfig config;
+
     private static HttpURLConnection con;
-    private static String tgToken = "5349492477:AAEpsKt23d0iTDrGVfG_FbahmQc2FDUt8EU";
-    private static int  chatId = 222973485;
-    private static String urlToken = "https://api.telegram.org/bot"+tgToken+"/sendMessage";
+
+    private final String CHAT_ID = "chat_id=";
+    private final String TEXT = "&text=";
+    public TelegramSenderImpl(TelegramConfig config) {
+        this.config = config;
+    }
 
     public void send(String msg) throws IOException {
-        String txt = msg;
 
-        String urlParameters = "chat_id="+chatId+"&text="+txt;
+        String urlParameters = CHAT_ID+config.getChatId()+TEXT+msg;
         byte[] postData = urlParameters.getBytes(StandardCharsets.UTF_8);
 
         try {
 
-            URL url = new URL(urlToken);
+            URL url = new URL(config.getUrlToken());
             con = (HttpURLConnection) url.openConnection();
 
             con.setDoOutput(true);

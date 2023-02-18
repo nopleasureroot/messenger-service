@@ -21,8 +21,6 @@ public class ConsumerMessenger {
 
     @KafkaListener(topics="analyzed-messages")
     public void msgListener(String msg) throws IOException {
-        //ObjectMapper mapper = new ObjectMapper();
-       // Message message = mapper.readValue(msg, Message.class);
         telegramSenderService.send(msg);
     }
 

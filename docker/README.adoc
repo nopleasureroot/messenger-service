@@ -1,0 +1,4 @@
+
+== kafka-docker-compose.yaml
+
+ Docker-compose в котором поднимается zookeeper и kafka
