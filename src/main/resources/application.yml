@@ -1,18 +1,16 @@
 spring:
   kafka:
-    server:
-      port: 29092
     consumer:
-      group-id: app.2
-      bootstrap-servers: localhost:29092
-
-
-server:
-  port: 8008
+      group-id: ${MESSAGE_CONSUMER_GROUP:app.2}
+      bootstrap-servers: ${BOOTSTRAP_HOST:localhost:29092}
 
 applications:
   telegram:
-    token: 6051693068:AAHwHoJLpSxeRM4TNVC8VBCGZl8957RJ91U   #Токен телеграм бота MessServiceTest1
-    url_token: https://api.telegram.org/bot6051693068:AAHwHoJLpSxeRM4TNVC8VBCGZl8957RJ91U/sendMessage
-    chat_id: -660748511 #Беседа в телеге Testing
+    token: ${TELEGRAM_BOT_TOKEN:6051693068:AAHwHoJLpSxeRM4TNVC8VBCGZl8957RJ91U}
+    chatId: ${TELEGRAM_CHAT_ID:-660748511 }
 
+clients:
+  telegram:
+    base-url: ${TELEGRAM_BASE_URL:https://api.telegram.org/bot}${TELEGRAM_BOT_TOKEN:6051693068:AAHwHoJLpSxeRM4TNVC8VBCGZl8957RJ91U}
+server:
+  port: 8082
