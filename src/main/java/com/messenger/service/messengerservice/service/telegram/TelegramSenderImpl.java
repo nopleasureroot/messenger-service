@@ -1,8 +1,10 @@
 package com.messenger.service.messengerservice.service.telegram;
 
-import com.messenger.service.messengerservice.client.TelegramClient;
-import com.messenger.service.messengerservice.config.TelegramProperties;
+import com.messenger.service.messengerservice.bot.telegram.Bot;
+import com.messenger.service.messengerservice.config.property.TelegramProperty;
+import com.messenger.service.messengerservice.model.MessageEvent;
 import com.messenger.service.messengerservice.service.Sender;
+import com.pengrad.telegrambot.request.SendMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -13,13 +15,15 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class TelegramSenderImpl implements Sender {
+    private final Bot bot;
+    private final TelegramProperty telegramProperty;
 
-    private final TelegramProperties config;
-    private final TelegramClient telegramClient;
+    @KafkaListener(topics = "analyzed-messages", groupId = "${spring.kafka.consumer.group-id}",
+        containerFactory = "kafkaMessageContainerFactory")
+    public void send(MessageEvent msg) {
+        SendMessage message = new SendMessage(telegramProperty.getChatId(), msg.message());
 
-    @KafkaListener(topics = "analyzed-messages")
-    public void send(String msg) {
-        telegramClient.sendMessage(config.getChatId(), msg);
+        bot.getBot().execute(message);
     }
 }
 

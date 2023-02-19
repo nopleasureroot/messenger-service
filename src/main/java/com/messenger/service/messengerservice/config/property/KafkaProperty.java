@@ -1,4 +1,4 @@
-package com.messenger.service.messengerservice.config;
+package com.messenger.service.messengerservice.config.property;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -10,8 +10,8 @@ import javax.validation.constraints.NotNull;
 @Data
 @Validated
 @Configuration
-@ConfigurationProperties(prefix = "applications.telegram")
-public class TelegramProperties {
-    @NotNull private String token;
-    @NotNull private String chatId;
+@ConfigurationProperties(prefix = "spring.kafka.consumer")
+public class KafkaProperty {
+    @NotNull private String bootstrapServers;
+    @NotNull private String groupId;
 }

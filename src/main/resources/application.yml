@@ -9,8 +9,5 @@ applications:
     token: ${TELEGRAM_BOT_TOKEN:6051693068:AAHwHoJLpSxeRM4TNVC8VBCGZl8957RJ91U}
     chatId: ${TELEGRAM_CHAT_ID:-660748511 }
 
-clients:
-  telegram:
-    base-url: ${TELEGRAM_BASE_URL:https://api.telegram.org/bot}${TELEGRAM_BOT_TOKEN:6051693068:AAHwHoJLpSxeRM4TNVC8VBCGZl8957RJ91U}
 server:
   port: 8082
