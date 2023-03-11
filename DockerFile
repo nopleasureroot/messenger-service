@@ -1,0 +1,7 @@
+#
+# Package stage
+#
+FROM openjdk:17
+COPY ./target/MessengerService.jar ./target/MessengerService.jar
+EXPOSE 8082
+ENTRYPOINT ["java","-jar","./target/MessengerService.jar"]
