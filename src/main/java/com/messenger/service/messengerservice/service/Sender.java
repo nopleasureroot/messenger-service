@@ -1,8 +1,9 @@
 package com.messenger.service.messengerservice.service;
 
-import com.messenger.service.messengerservice.model.MessageEvent;
 import org.springframework.messaging.handler.annotation.Payload;
 
+import com.messenger.service.messengerservice.model.DataConsumerEvent;
+
 public interface Sender {
-    void send(@Payload MessageEvent msg);
+    void send(@Payload DataConsumerEvent msg);
 }

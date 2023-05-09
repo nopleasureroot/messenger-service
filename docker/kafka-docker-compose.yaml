@@ -41,6 +41,16 @@ services:
       - kafka-ui
       - kafka
       - zookeeper
+  app-scraper:
+    image: scraper-service:1
+    ports:
+      - "8083:8083"
+    environment:
+      BOOTSTRAP_HOST: kafka:9092
+    depends_on:
+      - kafka-ui
+      - kafka
+      - zookeeper
 
 #    ports:
 #      - 8081:8081
